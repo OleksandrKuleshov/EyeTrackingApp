@@ -28,6 +28,8 @@ function CameraScreen({navigation}) {
     })();
   }, []);
 
+
+
   if (hasPermission && hasMediaPermission) {
     return (
     <View style={{ 
@@ -66,6 +68,12 @@ function CameraScreen({navigation}) {
             if (this.camera) {
               this.camera.stopRecording();
             }
+          }}
+        />
+        <Button
+          title= "Go to game scene"
+          onPress= {() => {
+            navigation.navigate("Game");
           }}
         />
       </View>

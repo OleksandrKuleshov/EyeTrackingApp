@@ -2,21 +2,18 @@ import React, {Component, useState, useEffect} from "react";
 import {Button, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native"
 import {Camera} from 'expo-camera';
 
-
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     alert("test");
+  //   },1000)
+  // })
 
 function GameScreen() {
 
   const randomNumber = Math.floor(Math.random() * 10) +1;
-  <Camera
-    ref = {ref => {
-      this.Camera = ref;
-    }}
-  />;
-  snap = async() => {
-    if (this.Camera) {
-      let photo = await this.Camera.takePictureAsync();
-    }
-  };
+  const test = 0;
+
+
   return (
     
     <View style={{
@@ -29,7 +26,9 @@ function GameScreen() {
         width:50, 
         height: 50,
         backgroundColor: 'steelblue',
-        margin: 10,
+        marginTop: 10,
+        marginLeft: 365,
+        margin: test,
         justifyContent: "center",
         alignItems: "center",
       }}>
