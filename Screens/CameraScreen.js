@@ -3,7 +3,8 @@ import {Button, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Camera } from "expo-camera";
-import * as MediaLibrary from 'expo-media-library'
+import * as MediaLibrary from 'expo-media-library';
+
 
 function CameraScreen({navigation}) { 
 
@@ -41,7 +42,7 @@ function CameraScreen({navigation}) {
       <Camera 
       style={{ 
         flex : 1,
-        opacity: 0,
+        opacity: 1,
       }} 
         type={type}
         ref = {ref => {

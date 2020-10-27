@@ -2,6 +2,9 @@ import React, {Component, useState, useEffect} from "react";
 import {Button, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native"
 import MyStyles from '../Styles/MyStyles';
 
+//fixa home screen
+//punkents position, diameter, 
+
 function HomeScreen({navigation}) { 
 
   return (
