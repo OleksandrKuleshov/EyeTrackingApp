@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Camera } from "expo-camera";
 import * as MediaLibrary from 'expo-media-library';
+import * as FaceDetector from 'expo-face-detector'
 
 
 function CameraScreen({navigation}) { 
@@ -11,7 +12,9 @@ function CameraScreen({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [hasMediaPermission, setHasMediaPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
+  // const [faces, setFaces] = useState([]);
   
+
 
   useEffect(() => {
     (async () => {
@@ -29,7 +32,12 @@ function CameraScreen({navigation}) {
     })();
   }, []);
 
-
+  // handleFacesDetected = ({faces}) => {
+  //   setFaces(faces);
+  //   const _faces = JSON.parse(faces);
+  //   // const test = JSON.stringify(faces);
+  //   console.log(_faces[0]);
+  // }
 
   if (hasPermission && hasMediaPermission) {
     return (
@@ -48,6 +56,14 @@ function CameraScreen({navigation}) {
         ref = {ref => {
           this.camera = ref;
         }}
+        // onFacesDetected ={this.handleFacesDetected}
+        // faceDetectorSettings={{
+        //   mode: FaceDetector.Constants.Mode.fast,
+        //   detectLandmarks: FaceDetector.Constants.Landmarks.all,
+        //   runClassifications: FaceDetector.Constants.Classifications.all,
+        //   minDetectionInterval: 100,
+        //   tracking: true,
+        // }}
       >
       </Camera>
       <View style={{ 
@@ -55,27 +71,8 @@ function CameraScreen({navigation}) {
           marginBottom: 100,
         }}>
         <Button 
-          title="Start recording"
-          onPress ={async () => {
-            if (this.camera) {
-              await this.camera.recordAsync({quality:1080, mirror: false}).then(async(data) => 
-                await MediaLibrary.saveToLibraryAsync(data.uri));
-            }
-          }}
-        />
-        <Button
-          title="Stop recording"
-          onPress ={() => {
-            if (this.camera) {
-              this.camera.stopRecording();
-            }
-          }}
-        />
-        <Button
-          title= "Go to game scene"
-          onPress= {() => {
-            navigation.navigate("Game");
-          }}
+          title="Start recording111"
+          onPress ={() => navigation.navigate("Game")}
         />
       </View>
     </View>
