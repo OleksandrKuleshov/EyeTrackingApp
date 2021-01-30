@@ -12,10 +12,8 @@ function GameScreen({navigation}) {
 
   record = async () => {
     if (this.cameraTwo) {
-      console.log("before");
       await this.cameraTwo.recordAsync({quality:1080, mirror: false}).then(
         async(data) => await MediaLibrary.saveToLibraryAsync(data.uri));
-      console.log("after");
     }
   };
 
@@ -42,30 +40,38 @@ function GameScreen({navigation}) {
   }
   useEffect(() => {
     if (started) {
-      if(count < 8) {
+      if(count < 9) {
         const interval = setInterval(() => {
-          setCount(count => count + 1);
-        }, 1000)
+          if(count < 8) {
+            setCount(count => count + 1);
+            console.log(dots[count]);
+          }
+          else {
+            setStarted(false);
+            if (this.camera) {
+              this.camera.stopRecording();
+            }
+            alert("Done");
+            navigation.navigate("Camera");
+          }
+        }, 3000)
         return () => clearInterval(interval);
       }
-      if (this.camera) {
-        this.camera.stopRecording();
-      }
-      alert("Done");
-      navigation.navigate("Camera");
     }
   });
 
+  // Dimensions.get('window').height*0.02
+  // Dimensions.get('window').width*0.05
   const randomNumber = Math.floor(Math.random() * 10) +1;
-  const d1 = {height: Dimensions.get('window').height*0.02, width: Dimensions.get('window').width*0.05};
-  const d2 = {height: Dimensions.get('window').height*0.02, width: Dimensions.get('window').width*0.5-20};
-  const d3 = {height: Dimensions.get('window').height*0.02, width: Dimensions.get('window').width*0.95-40}
-  const d4 = {height: Dimensions.get('window').height*0.4, width: Dimensions.get('window').width*0.05}
-  const d5 = {height: Dimensions.get('window').height*0.4, width: Dimensions.get('window').width*0.5-20}
-  const d6 = {height: Dimensions.get('window').height*0.4, width: Dimensions.get('window').width*0.95-40}
-  const d7 = {height: Dimensions.get('window').height*0.7, width: Dimensions.get('window').width*0.05}
-  const d8 = {height: Dimensions.get('window').height*0.7, width: Dimensions.get('window').width*0.5-20}
-  const d9 = {height: Dimensions.get('window').height*0.7, width: Dimensions.get('window').width*0.95-40}
+  const d1 = {height: 30, width: 30}; //     (50, 138)
+  const d2 = {height: 30, width: 167.5}; //  (187,5; 138)
+  const d3 = {height: 30, width: 305}; //    (325, 138)
+  const d4 = {height: 298, width: 30}; //    (50, 406)
+  const d5 = {height: 298, width: 167.5}; // (187,5; 406)
+  const d6 = {height: 298, width: 305}; //   (325, 406)
+  const d7 = {height: 654, width: 30}; //    (50, 762)
+  const d8 = {height: 654, width: 167.5}; // (187,5; 762)
+  const d9 = {height: 654, width: 305}; //   (325, 762)
 
   const dots = [d1, d2, d3, d4, d5, d6, d7, d8, d9];
   
@@ -117,10 +123,15 @@ function GameScreen({navigation}) {
         }}
       >
       </Camera>
-      <Button
-        title = "Start Recording"
-        onPress={() => startGame()}
-        />
+      <View style={{ 
+          position: "relative",
+          marginBottom: 100,
+        }}>
+        <Button
+          title = "Start Recording"
+          onPress={() => startGame()}
+          />
+        </View>
     </View>
     )
   }

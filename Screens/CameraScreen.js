@@ -1,10 +1,12 @@
 import React, {Component, useState, useEffect} from "react";
-import {Button, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native"
+import {Button, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Camera } from "expo-camera";
 import * as MediaLibrary from 'expo-media-library';
 import * as FaceDetector from 'expo-face-detector'
+import { Header } from "react-native/Libraries/NewAppScreen";
+import { useHeaderHeight } from '@react-navigation/stack';
 
 
 function CameraScreen({navigation}) { 
@@ -13,7 +15,7 @@ function CameraScreen({navigation}) {
   const [hasMediaPermission, setHasMediaPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   // const [faces, setFaces] = useState([]);
-  
+  const headerHeight = useHeaderHeight();
 
 
   useEffect(() => {
@@ -28,6 +30,8 @@ function CameraScreen({navigation}) {
     (async () => {
       const {status} = await MediaLibrary.requestPermissionsAsync();
       console.log("media library permission: " + status);
+      console.log("height: " + Dimensions.get('window').height + " width: " + Dimensions.get('window').width);
+      console.log(headerHeight);
       setHasMediaPermission(status ==='granted');
     })();
   }, []);
@@ -74,6 +78,7 @@ function CameraScreen({navigation}) {
           title="Start recording111"
           onPress ={() => navigation.navigate("Game")}
         />
+        <Button title = "Start reading recording" onPress ={() => navigation.navigate("ReadScreen")}/>
       </View>
     </View>
   );
